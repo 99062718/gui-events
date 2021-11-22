@@ -1,6 +1,6 @@
 import tkinter
-from typing import Text
 number = 0
+lastPressed = None
 
 def windowChange(self):
     textLabel.configure(text=number)
@@ -14,14 +14,26 @@ def windowChange(self):
 def makeYellow(self):
     mainWindow.configure(bg="yellow")
 
+def doubleClick(self):
+    global number
+    if lastPressed == "up":
+        number *= 3
+    elif lastPressed == "down":
+        number /= 3
+    windowChange("")
+
 def numUp():
     global number
+    global lastPressed
     number += 1
+    lastPressed = "up"
     windowChange("")
 
 def numDown():
     global number
+    global lastPressed
     number -= 1
+    lastPressed = "down"
     windowChange("")
 
 mainWindow = tkinter.Tk()
@@ -49,6 +61,7 @@ textLabel.configure(
 textLabel.pack(pady=10, fill="x")
 textLabel.bind("<Enter>", makeYellow)
 textLabel.bind("<Leave>", windowChange)
+textLabel.bind("<Double-Button-1>", doubleClick)
 
 downButton = tkinter.Button(mainWindow)
 downButton.configure(
