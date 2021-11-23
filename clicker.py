@@ -22,14 +22,14 @@ def doubleClick(self):
         number /= 3
     windowChange("")
 
-def numUp():
+def numUp(self):
     global number
     global lastPressed
     number += 1
     lastPressed = "up"
     windowChange("")
 
-def numDown():
+def numDown(self):
     global number
     global lastPressed
     number -= 1
@@ -47,9 +47,9 @@ upButton.configure(
     bg="white",
     text="up",
     fg="black",
-    command=numUp
 )
 upButton.pack(pady=10, fill="x")
+upButton.bind("<Button-1>", numUp)
 
 textLabel = tkinter.Label(mainWindow)
 textLabel.configure(
@@ -67,9 +67,15 @@ downButton = tkinter.Button(mainWindow)
 downButton.configure(
     bg="white",
     text="down",
-    fg="black",
-    command=numDown
+    fg="black"
 )
 downButton.pack(pady=10, fill="x")
+downButton.bind("<Button-1>", numDown)
+
+mainWindow.bind("<space>", doubleClick)
+mainWindow.bind("<Up>", numUp)
+mainWindow.bind("<KP_Add>", numUp)
+mainWindow.bind("<Down>", numDown)
+mainWindow.bind("<KP_Subtract>", numDown)
 
 mainWindow.mainloop()
